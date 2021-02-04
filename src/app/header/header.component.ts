@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { DataStroageService } from '../shared/data-storage.service';
 
 @Component ({
     selector: 'app-header',
@@ -6,5 +7,12 @@ import { Component } from '@angular/core';
 })
 
 export class HeaderComponent {
+    constructor(private dataStroageService : DataStroageService){}
+    onSaveData(){
+        this.dataStroageService.storeRecipes();
+    }
 
+    onFetchData(){
+        this.dataStroageService.fetchRecipes().subscribe();
+    }
 }
