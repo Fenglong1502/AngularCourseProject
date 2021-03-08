@@ -15,6 +15,7 @@ import { Store } from "@ngrx/store";
 export class AuthComponent implements OnInit, OnDestroy{
     isLoginMode = true;
     isLoading = false;
+
     error: string = null;
     @ViewChild(PlaceholderDirective, { static: false }) alertHost : PlaceholderDirective;
 
@@ -31,10 +32,12 @@ export class AuthComponent implements OnInit, OnDestroy{
         this.storeSub = this.store.select('auth').subscribe(authState => {
             this.isLoading = authState.loading;
             this.error = authState.authError;
+
+            if(this.error) {
+                console.log('There is error');
+                this.showErrorAlert(this.error)
+            }
         });
-        if(this.error) {
-            this.showErrorAlert(this.error)
-        }
     }
 
     onSwitchMode() {
